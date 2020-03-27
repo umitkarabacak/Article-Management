@@ -1,3 +1,4 @@
+using System;
 using ArticleManagement.Business.Abstract;
 using ArticleManagement.Business.Concrete;
 using ArticleManagement.Core.DataAccess.Abstract;
@@ -9,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace ArticleManagement.WebAPI
 {
@@ -33,6 +35,22 @@ namespace ArticleManagement.WebAPI
             services.AddTransient<IArticleService, ArticleService>();
             services.AddTransient<ICommentService, CommentService>();
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("CoreSwagger", new OpenApiInfo
+                {
+                    Title = "Swagger on ASP.NET Core 3.1    ",
+                    Version = "1.0.0",
+                    Description = "Article Management With Swagger",
+                    Contact = new OpenApiContact
+                    {
+                        Email = "umit.karabacak@hotmail.com.tr",
+                        Name = "Ümit Karabacak",
+                        Url = new Uri("https://github.com/umitkarabacak/"),
+                    }
+                });
+            });
+
             services.AddControllers();
         }
 
@@ -45,6 +63,11 @@ namespace ArticleManagement.WebAPI
             }
 
             app.UseHttpsRedirection();
+
+            app.UseSwagger().UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/CoreSwagger/swagger.json", "swagger version etc.");
+            });
 
             app.UseRouting();
 

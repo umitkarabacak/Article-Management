@@ -12,7 +12,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "Article",
+      "launchUrl": "swagger/index",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -20,7 +20,7 @@
     "ArticleManagement.WebAPI": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "Article",
+      "launchUrl": "swagger/index",
       "applicationUrl": "https://localhost:5001;http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
