@@ -1,7 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using ArticleManagement.Business.Abstract;
 using ArticleManagement.Business.DTOs.Article;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace ArticleManagement.WebAPI.Controllers
 {
@@ -11,11 +13,14 @@ namespace ArticleManagement.WebAPI.Controllers
     {
         private readonly IArticleService _articleService;
         private readonly ICommentService _commentService;
+        private readonly ILogger<ArticleController> _logger;
 
-        public ArticleController(IArticleService articleService, ICommentService commentService)
+        public ArticleController(IArticleService articleService, ICommentService commentService, ILogger<ArticleController> logger)
         {
             _articleService = articleService;
             _commentService = commentService;
+
+            _logger = logger;
         }
 
         // GET Article
@@ -24,6 +29,7 @@ namespace ArticleManagement.WebAPI.Controllers
         {
             var articles = _articleService.Articles();
 
+            _logger.LogInformation($"Get call all articles {DateTime.Now:U}");
             return Ok(articles);
         }
 
@@ -33,6 +39,7 @@ namespace ArticleManagement.WebAPI.Controllers
         {
             var article = await _articleService.GetArticle(articledId);
 
+            _logger.LogInformation($"Get article with {articledId} {DateTime.Now:U}");
             return Ok(article);
         }
 
@@ -69,6 +76,7 @@ namespace ArticleManagement.WebAPI.Controllers
         {
             var articles = _articleService.ArticlesWithComments();
 
+            _logger.LogInformation($"Get call all articles with details {DateTime.Now:U}");
             return Ok(articles);
         }
 
