@@ -4,12 +4,59 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.29911.84
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8B24A393-82EF-4B57-ABF4-8CEDA195B080}"
+	ProjectSection(SolutionItems) = preProject
+		DatabaseGeneratorScript.sql = DatabaseGeneratorScript.sql
+		Readme.md = Readme.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{BF9F7297-9CA3-4861-9D58-63A95FEEC9F9}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArticleManagement.Domain", "ArticleManagement.Domain\ArticleManagement.Domain.csproj", "{868C2D30-EB62-46D9-951D-6A09704C3A8B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArticleManagement.Data", "ArticleManagement.Data\ArticleManagement.Data.csproj", "{73D46A88-B308-4C63-B613-E4AB389401EF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArticleManagement.Core", "ArticleManagement.Core\ArticleManagement.Core.csproj", "{3336E2AF-C194-4A4D-B70D-22832E65BE00}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArticleManagement.Business", "ArticleManagement.Business\ArticleManagement.Business.csproj", "{D6DA46F9-3524-4DE0-A15F-2C46D85E6910}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArticleManagement.WebAPI", "ArticleManagement.WebAPI\ArticleManagement.WebAPI.csproj", "{B78A9CC5-C6AE-494E-97FC-92E707B5A539}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{868C2D30-EB62-46D9-951D-6A09704C3A8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{868C2D30-EB62-46D9-951D-6A09704C3A8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{868C2D30-EB62-46D9-951D-6A09704C3A8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{868C2D30-EB62-46D9-951D-6A09704C3A8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73D46A88-B308-4C63-B613-E4AB389401EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73D46A88-B308-4C63-B613-E4AB389401EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73D46A88-B308-4C63-B613-E4AB389401EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73D46A88-B308-4C63-B613-E4AB389401EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3336E2AF-C194-4A4D-B70D-22832E65BE00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3336E2AF-C194-4A4D-B70D-22832E65BE00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3336E2AF-C194-4A4D-B70D-22832E65BE00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3336E2AF-C194-4A4D-B70D-22832E65BE00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6DA46F9-3524-4DE0-A15F-2C46D85E6910}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6DA46F9-3524-4DE0-A15F-2C46D85E6910}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6DA46F9-3524-4DE0-A15F-2C46D85E6910}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6DA46F9-3524-4DE0-A15F-2C46D85E6910}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B78A9CC5-C6AE-494E-97FC-92E707B5A539}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B78A9CC5-C6AE-494E-97FC-92E707B5A539}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B78A9CC5-C6AE-494E-97FC-92E707B5A539}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B78A9CC5-C6AE-494E-97FC-92E707B5A539}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{868C2D30-EB62-46D9-951D-6A09704C3A8B} = {8B24A393-82EF-4B57-ABF4-8CEDA195B080}
+		{73D46A88-B308-4C63-B613-E4AB389401EF} = {8B24A393-82EF-4B57-ABF4-8CEDA195B080}
+		{3336E2AF-C194-4A4D-B70D-22832E65BE00} = {8B24A393-82EF-4B57-ABF4-8CEDA195B080}
+		{D6DA46F9-3524-4DE0-A15F-2C46D85E6910} = {8B24A393-82EF-4B57-ABF4-8CEDA195B080}
+		{B78A9CC5-C6AE-494E-97FC-92E707B5A539} = {8B24A393-82EF-4B57-ABF4-8CEDA195B080}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FB3224C0-3E35-411E-8901-E600713ED90A}
