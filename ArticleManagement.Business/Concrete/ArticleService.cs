@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ArticleManagement.Business.Abstract;
@@ -12,22 +13,28 @@ namespace ArticleManagement.Business.Concrete
     public class ArticleService : IArticleService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ICacheProvider _cacheProvider;
+        private string searchKey = "article";
 
-        public ArticleService(IUnitOfWork unitOfWork)
+        public ArticleService(IUnitOfWork unitOfWork, ICacheProvider cacheProvider)
         {
             _unitOfWork = unitOfWork;
+            _cacheProvider = cacheProvider;
         }
 
-        public IEnumerable<ResponseArticle> Articles()
+        public async Task<IEnumerable<ResponseArticle>> Articles()
         {
-            var articles = _unitOfWork.Repository<Article>().Get();
+            var isInCache = await _cacheProvider.IsInCache(searchKey);
+            if (isInCache)
+                return await _cacheProvider.Get<IEnumerable<ResponseArticle>>(searchKey);
 
-            return articles.Select(article => new ResponseArticle
+            var allArticles = _unitOfWork.Repository<Article>().Get().Select(article => new ResponseArticle
             {
                 Id = article.Id,
                 Title = article.Title,
                 Description = article.Content
             });
+            return await SetRedis(searchKey, allArticles);
         }
 
         public IEnumerable<ResponseArticleDetail> ArticlesWithComments()
@@ -56,9 +63,14 @@ namespace ArticleManagement.Business.Concrete
 
         public async Task<ResponseArticle> GetArticle(int articledId)
         {
-            ResponseArticle article = await _unitOfWork.Repository<Article>().Find(articledId);
+            searchKey = $"{searchKey}-{articledId}";
+            var isInCache = await _cacheProvider.IsInCache(searchKey);
 
-            return article;
+            if (isInCache)
+                return await _cacheProvider.Get<ResponseArticle>(searchKey);
+
+            ResponseArticle article = await _unitOfWork.Repository<Article>().Find(id);
+            return await SetRedis(searchKey, article);
         }
 
         public async Task<ResponseArticle> AddArticle(RequestArticle requestCreateArticle)
@@ -71,12 +83,9 @@ namespace ArticleManagement.Business.Concrete
 
             await _unitOfWork.Repository<Article>().Add(article);
             await _unitOfWork.CommitAsync();
-            return new ResponseArticle
-            {
-                Id = article.Id,
-                Title = article.Title,
-                Description = article.Content
-            };
+
+            searchKey = $"{searchKey}-{article.Id}";
+            return await SetRedis(searchKey, (ResponseArticle)article);
         }
 
         public async Task UpdateArticle(int articledId, RequestArticle requestArticle)
@@ -90,12 +99,24 @@ namespace ArticleManagement.Business.Concrete
 
             _unitOfWork.Repository<Article>().Update(article);
             await _unitOfWork.CommitAsync();
+
+            searchKey = $"{searchKey}-{articledId}";
+            await SetRedis(searchKey, (ResponseArticle)article);
         }
 
         public async Task RemoveArticle(int articledId)
         {
             await _unitOfWork.Repository<Article>().Remove(articledId);
             await _unitOfWork.CommitAsync();
+
+            searchKey = $"{searchKey}-{articledId}";
+            await _cacheProvider.Delete(searchKey);
+        }
+
+        private async Task<T> SetRedis<T>(string key, T t)
+        {
+            await _cacheProvider.Delete(searchKey);
+            return await _cacheProvider.Set(key, t, TimeSpan.FromMinutes(10));
         }
     }
 }

@@ -6,7 +6,7 @@ namespace ArticleManagement.Business.Abstract
 {
     public interface IArticleService
     {
-        IEnumerable<ResponseArticle> Articles();
+        Task<IEnumerable<ResponseArticle>> Articles();
 
         IEnumerable<ResponseArticleDetail> ArticlesWithComments();
 
