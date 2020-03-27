@@ -69,7 +69,7 @@ namespace ArticleManagement.Business.Concrete
             if (isInCache)
                 return await _cacheProvider.Get<ResponseArticle>(searchKey);
 
-            ResponseArticle article = await _unitOfWork.Repository<Article>().Find(id);
+            ResponseArticle article = await _unitOfWork.Repository<Article>().Find(articledId);
             return await SetRedis(searchKey, article);
         }
 

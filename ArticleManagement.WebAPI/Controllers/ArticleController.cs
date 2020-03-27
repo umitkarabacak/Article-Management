@@ -25,9 +25,9 @@ namespace ArticleManagement.WebAPI.Controllers
 
         // GET Article
         [HttpGet("/Article")]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var articles = _articleService.Articles();
+            var articles = await _articleService.Articles();
 
             _logger.LogInformation($"Get call all articles {DateTime.Now:U}");
             return Ok(articles);
