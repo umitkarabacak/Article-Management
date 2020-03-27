@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8B24A393-82EF-4B57-ABF4-8CEDA195B080}"
 	ProjectSection(SolutionItems) = preProject
 		DatabaseGeneratorScript.sql = DatabaseGeneratorScript.sql
+		Readme.md = Readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{BF9F7297-9CA3-4861-9D58-63A95FEEC9F9}"
